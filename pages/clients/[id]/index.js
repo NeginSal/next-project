@@ -1,13 +1,12 @@
 import { useRouter } from "next/router";
 
-const PortfolioProjectPage = () => {
+const ClinetProjectsPage = () => {
     const router = useRouter();
-
     return ( 
         <div>
-         <h1>the portfolio project page</h1>
+            <h1>The project of given clinet</h1>
         </div>
      );
 }
  
-export default PortfolioProjectPage;
+export default ClinetProjectsPage;
