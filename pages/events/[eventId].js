@@ -1,32 +1,40 @@
-import { Fragment } from "react";
-import { useRouter } from "next/router";
-import { getEventById } from '../../dummy-data'
-import EventSummary from '../../components/event-detail/event-summary'
-import EventLogistic from '../../components/event-detail/event-logistics'
-import EventContent from '../../components/event-detail/event-content'
-import LogisticsItem from "../../components/event-detail/logistics-item";
+import { Fragment } from 'react';
+import { useRouter } from 'next/router';
 
-const EventDetailPage = () => {
+import { getEventById } from '../../dummy-data';
+import EventSummary from '../../components/event-detail/event-summary';
+import EventLogistics from '../../components/event-detail/event-logistics';
+import EventContent from '../../components/event-detail/event-content';
+import ErrorAlert from '../../components/ui/error-alert';
 
-    const router = useRouter();
-    const eventId = router.query.eventId;
-    const event = getEventById(eventId);
+function EventDetailPage() {
+  const router = useRouter();
 
-    if (!event) {
-        return (<p>No event found!</p>)
-    }
+  const eventId = router.query.eventId;
+  const event = getEventById(eventId);
 
+  if (!event) {
     return (
-
-        <Fragment>
-            <EventSummary title={event.title} />
-            <EventLogistic date={event.date} address={event.location}
-                image={event.image} imageAlt={event.title} />
-            <EventContent><p>{event.description}</p></EventContent>
-            <LogisticsItem />
-        </Fragment>
-
+      <ErrorAlert>
+        <p>No event found!</p>
+      </ErrorAlert>
     );
+  }
+
+  return (
+    <Fragment>
+      <EventSummary title={event.title} />
+      <EventLogistics
+        date={event.date}
+        address={event.location}
+        image={event.image}
+        imageAlt={event.title}
+      />
+      <EventContent>
+        <p>{event.description}</p>
+      </EventContent>
+    </Fragment>
+  );
 }
 
 export default EventDetailPage;
